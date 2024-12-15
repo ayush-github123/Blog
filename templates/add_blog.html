@@ -1,0 +1,77 @@
+{% extends "main.html" %}
+
+{% block style %}
+        .form-container {
+            width: 60%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 200px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>Add a New Blog Post</h2>
+        <form action="{% url 'add-blog' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Title">Title:</label>
+                <input type="text" name="Title" id="title" placeholder="Enter the Title of the blog" required>
+            </div>
+            <div class="form-group">
+                <label for="Content">Content:</label>
+                <textarea name="Content" id="content" placeholder="Enter the content of the blog" required></textarea>
+            </div>
+            <button type="submit">Submit Blog</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "main.html" %}
+
+{% block style %}
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+        background-color: #f0f2f5; /* Soft background */
+    }
+
+    .auth-box {
+        width: 400px;
+        padding: 30px;
+        background: #fff;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .auth-box h2 {
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .auth-box .form-control {
+        margin-bottom: 15px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    .auth-box .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .auth-box .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .auth-box .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .auth-box a {
+        display: block;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .auth-box a:hover {
+        text-decoration: underline;
+    }
+{% endblock %}
+
+{% block content %}
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Login</h2>
+            <form method="post" action="{% url 'login-page' %}">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Username" name="username" required>
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                {% for message in messages %}
+                    <p style="color: red">{{ message }}</p>
+                {% endfor %}
+            </form>
+            <a href="{% url 'register' %}">Don't have an account? Register here</a>
+        </div>
+    </div>
+{% endblock %}

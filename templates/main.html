@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            font-family: 'Poppins';
+            color: black;
+        }
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            margin: 0 10px;
+            padding: 15px;
+            box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.2); /* Bottom-only shadow */
+
+        }
+        .nav-items{
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .side-items{
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        {% block style %}{% endblock %}
+    </style>
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="logo" style="font-size: 1.2rem; font-weight: bolder;">
+            LOGO
+        </div>
+
+        <div class="nav-items">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="" class="nav-link">Prices</a>
+            <a href="{% url 'blogs' %}" class="nav-link">Blogs</a>
+        </div>
+
+        <div class="side-items">
+            {% if user.is_authenticated %}
+                <a href="" class="nav-link">@{{request.user.username}}</a>
+                <a href="{% url 'logout-page' %}" class="nav-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login-page' %}" class="side-link">Login</a>
+                <a href="{% url 'register' %}" class="side-link">Register</a>
+            {% endif %}
+            
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

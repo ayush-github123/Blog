@@ -1,0 +1,146 @@
+{% extends "main.html" %}
+
+{% block style %}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f4f4f9;
+        {% comment %} display: flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+        margin: 0; {% endcomment %}
+    }
+
+    .welcome-container {
+        background-color: #fff;
+        padding: 50px 30px;
+        margin-top:50px;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100vw;
+        opacity: 0;
+        animation: fadeIn 1.5s forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .welcome-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 1.2rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        font-weight: 300;
+    }
+
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        opacity: 0;
+        animation: fadeIn 2s forwards 0.5s;
+    }
+
+    .buttons-container a {
+        text-decoration: none;
+        padding: 12px 25px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.2s ease;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        border: 1px solid transparent;
+    }
+
+    .buttons-container a:hover {
+        background-color: #45a049;
+        transform: translateY(-3px);
+    }
+
+    .buttons-container a.show-blogs-btn {
+        background-color: #007bff;
+    }
+
+    .buttons-container a.show-blogs-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .buttons-container a.login-btn {
+        background-color: #ffc107;
+    }
+
+    .buttons-container a.login-btn:hover {
+        background-color: #e0a800;
+    }
+
+    .buttons-container a.register-btn {
+        background-color: #28a745;
+    }
+
+    .buttons-container a.register-btn:hover {
+        background-color: #218838;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: #888;
+        font-size: 0.9rem;
+        opacity: 0;
+        animation: fadeIn 2s forwards 1s;
+    }
+
+{% endblock %}
+
+{% block content %}
+    <div class="welcome-container">
+        <h1 class="welcome-title">Welcome to Our Blog Platform</h1>
+        <p class="description">
+            A platform to share ideas, stories, and insights. Whether you're a passionate writer or a curious reader, you're in the right place.
+            Join our community, write your first post, and engage with like-minded individuals.
+        </p>
+
+        <div class="buttons-container">
+            {% if user.is_authenticated %}
+            <a href="{% url 'blogs' %}" class="show-blogs-btn">Show Blogs</a>
+            {% else %}
+            <a href="{% url 'login-page' %}" class="login-btn">Login</a>
+            <a href="{% url 'register' %}" class="register-btn">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Our Blog Platform. All Rights Reserved.</p>
+    </div>
+{% endblock %}
