@@ -1,0 +1,96 @@
+{% extends "main.html" %}
+
+{% block style %}
+    .edit-blog-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .edit-blog-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #333;
+    }
+
+    .edit-blog-form input,
+    .edit-blog-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .edit-blog-form input:focus,
+    .edit-blog-form textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .edit-blog-form textarea {
+        resize: vertical;
+    }
+
+    .edit-blog-form button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .edit-blog-form button:hover {
+        background-color: #0056b3;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .back-link:hover {
+        color: #0056b3;
+    }
+{% endblock %}
+
+{% block content %}
+    <div class="edit-blog-container">
+        <h2 class="edit-blog-title">Edit Your Blog Post</h2>
+        <form method="POST" class="edit-blog-form" action="{% url 'edit-blog' posts.id %}">
+            {% csrf_token %}
+            <input 
+                type="text" 
+                name="title" 
+                value="{{ posts.title }}" 
+                placeholder="Blog Title" 
+                required
+            >
+            <textarea 
+                name="content" 
+                rows="10" 
+                placeholder="Write your blog content here..." 
+                required
+            >{{ posts.content }}</textarea>
+            <button type="submit">Update Blog</button>
+        </form>
+        <a href="{% url 'blogs' %}" class="back-link">&larr; Back to Blogs</a>
+    </div>
+{% endblock %}

@@ -119,14 +119,14 @@
                         By <span style="font-weight:bolder;">@{{ post.user.username }}</span> on {{ post.created_at|date:"F j, Y, g:i a" }}
                         </div>  
                         {% if post.user == user %}
-                        <div >
-                        <form action="{% url 'delete-blog' post.id %}" method="POST" style="display:inline; display:flex; gap:10px;">
-                            {% csrf_token %}
-                            <button type="submit" class="edit-btn">
+                        <div style="display:flex; gap:10px;">
+                            <a href="{% url 'edit-blog' post.id %}"><button type="submit" class="edit-btn">
                                 <i class="fas fa-edit"></i>
-                            </button>                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?');">
+                            </button></a>    
+                            <form action="{% url 'delete-blog' post.id %}" method="POST" >
+                                {% csrf_token %}<button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?');">
                                 <i class="fas fa-trash"></i>
-                            </button>
+                                </button>
                         </form>
                         </div>
                     {% endif %}

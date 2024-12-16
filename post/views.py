@@ -102,6 +102,22 @@ def delete_blog(request, pk):
     if request.method == "POST":
         posts.delete()
         return redirect('blogs')
-    return render(request, 'delete_blog.html', {'posts': posts})
+    return redirect('blogs')
 
-
+@login_required(login_url='login-page')
+def edit_blog(request, pk):
+    posts = get_object_or_404(post, pk=pk, user=request.user)
+    
+    if request.method == "POST":
+        title = request.POST['title']
+        content = request.POST['content']
+        
+        if not title.strip() or not content.strip():
+            messages.error(request, 'Both field are required')
+            return render(request, 'edit_blog.html')
+        
+        posts.title = title
+        posts.content = content
+        posts.save()
+        return redirect('blogs')
+    return render(request, 'edit_blog.html', {'posts': posts})
